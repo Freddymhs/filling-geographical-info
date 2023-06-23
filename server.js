@@ -57,7 +57,7 @@ app.post("/daily", async (_, res) => {
 });
 
 const job = new cron.CronJob(
-  "26 11 * * *",
+  "28 11 * * *",
   () => {
     axios
       .post(
@@ -76,6 +76,7 @@ const job = new cron.CronJob(
   "America/Santiago"
 );
 
+job.start();
 job.start();
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor en funcionamiento");
