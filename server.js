@@ -18,11 +18,7 @@ const { count, data } = timesPushed;
 // required middleware
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (_, res) => {
-  timesPushed.errorOccurred = false;
-  const indexPath = path.join(__dirname, "index.html");
-  res.sendFile(indexPath);
-});
+// view results
 app.get("/now", (_, res) => {
   res.send({
     count,
@@ -30,7 +26,17 @@ app.get("/now", (_, res) => {
   });
 });
 
+// manual push
+app.get("/", (_, res) => {
+  timesPushed.errorOccurred = false;
+  const indexPath = path.join(__dirname, "index.html");
+
+  res.sendFile(indexPath);
+});
+
+// api push
 app.post("/push", async (req, res) => {
+  timesPushed.errorOccurred = false;
   const apikey = req.body.inputData;
   const newLocationsFound = await completeLocationsWithGeoApi(apikey);
   newLocationsFound[0]?.code && timesPushed.data.push(...newLocationsFound);
@@ -56,27 +62,27 @@ app.post("/daily", async (_, res) => {
     );
 });
 
-const job = new cron.CronJob(
-  "41 11 * * *",
-  () => {
-    axios
-      .post(
-        "https://filling-geographical-info-e19ec34626c6.herokuapp.com/daily"
-      )
-      .then(() => {
-        console.log("Cron ejecutado");
-        console.log("o_o");
-      })
-      .catch((error) => {
-        console.error("Error en cron", error.message);
-      });
-  },
-  null,
-  true,
-  "America/Santiago"
-);
+// const job = new cron.CronJob(
+//   "41 11 * * *",
+//   () => {
+//     axios
+//       .post(
+//         "https://filling-geographical-info-e19ec34626c6.herokuapp.com/daily"
+//       )
+//       .then(() => {
+//         console.log("Cron ejecutado");
+//         console.log("o_o");
+//       })
+//       .catch((error) => {
+//         console.error("Error en cron", error.message);
+//       });
+//   },
+//   null,
+//   true,
+//   "America/Santiago"
+// );
 
-job.start();
+// job.start();
 app.listen(process.env.PORT || 3000, () => {
   console.log("Servidor en funcionamiento");
 });
