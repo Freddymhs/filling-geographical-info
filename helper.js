@@ -1,7 +1,8 @@
 const timesPushed = {
   data: [],
   count: 0,
-  maxQueryPerDay: 2500,
+  maxQueryPerDay: 15000,
+  // maxQueryPerDay: 1,
   newIndex: 0,
   prevIndex: 0,
   errorOcurred: false,
