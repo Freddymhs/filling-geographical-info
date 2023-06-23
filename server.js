@@ -13,20 +13,22 @@ const completeLocationsWithGeoApi = require("./finder.js");
 
 // """"bd""""
 const timesPushed = require("./helper.js");
-const { count, data } = timesPushed;
+const { count, data, prevIndex, newIndex } = timesPushed;
 
 // required middleware
 app.use(express.urlencoded({ extended: true }));
 
-// view results
+// view results and state
 app.get("/now", (_, res) => {
   res.send({
+    newIndex,
+    prevIndex,
     count,
     data,
   });
 });
 
-// manual push
+// manual input push
 app.get("/", (_, res) => {
   timesPushed.errorOccurred = false;
   const indexPath = path.join(__dirname, "index.html");
