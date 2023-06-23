@@ -5,7 +5,7 @@ const timesPushed = require("./helper.js");
 module.exports = completeLocationsWithGeoApi = async (apikey) => {
   const helpPrev = timesPushed.newIndex;
   const helpNew = timesPushed.newIndex;
-  const inputApi = apikey || "cdf2cd81b287465f8a3e0629613044a0";
+  const inputApi = apikey || "e8b1e69edfc34515b73f8f1da0b6a19c"; //f.h@k.co
   timesPushed.prevIndex = timesPushed.newIndex;
   timesPushed.newIndex = timesPushed.prevIndex + timesPushed.maxQueryPerDay;
 
