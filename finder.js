@@ -24,7 +24,7 @@ module.exports = completeLocationsWithGeoApi = async (apikey) => {
         continue;
       }
 
-      const response = await axios.get(url);
+      const response = await axios.get(url, { timeout: 0 });
       const resultados = response.data.results;
 
       if (
