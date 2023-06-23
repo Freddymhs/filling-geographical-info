@@ -57,7 +57,7 @@ app.post("/daily", async (_, res) => {
 });
 
 const job = new cron.CronJob(
-  "11 20 * * *",
+  "22 11 * * *",
   () => {
     axios
       .post(
